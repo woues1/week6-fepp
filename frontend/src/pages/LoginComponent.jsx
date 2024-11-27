@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
 
 const LoginComponent = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const { Login, error, pending } = useLogin()
+
   const handleLogin = async () => {
+    await Login(email, password, setIsAuthenticated)
+    navigate("/");
+    console.log(error)
+  }
+
+  /*const handleLogin = async () => {
     try {
       const response = await fetch("/api/users/login", {
         method: "POST",
@@ -28,7 +37,7 @@ const LoginComponent = ({ setIsAuthenticated }) => {
     } catch (error) {
       console.error("Error during login:", error);
     }
-  };
+  };*/
 
   return (
     <div className="form-container">

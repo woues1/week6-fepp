@@ -1,12 +1,12 @@
 import { useState } from "react"
 
-export function useSignup() {
-    const [pending, setPending] = useState(false)
+export function useLogin() {
+    const [pending, setPending] = useState(null)
     const [error, setError] = useState(null)
-    const Signup = async (email, password, setIsAuthenticated) => {
+    const Login = async (email, password, setIsAuthenticated) => {
 
         setPending(true)
-        const res = await fetch('/api/users/signup', {
+        const res = await fetch('/api/users/login', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -26,6 +26,6 @@ export function useSignup() {
 
     }
 
-    return { Signup, pending }
+    return { Login, error, pending }
 }
 

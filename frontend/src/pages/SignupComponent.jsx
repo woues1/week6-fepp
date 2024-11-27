@@ -5,16 +5,18 @@ import { useSignup } from "../hooks/useSignup";
 const SignupComponent = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const navigate = useNavigate();
 
   const { Signup, pending } = useSignup()
 
   const handleSignup = async () => {
-    Signup(email, password, setIsAuthenticated)
-
-
-    navigate("/");
-
+    if (password == password2){
+      await Signup(email, password, setIsAuthenticated)
+      navigate("/");
+    } else {
+      console.log("Passwords do not match")
+    }
   }
 
   // const handleSignup = async () => {
@@ -60,6 +62,14 @@ const SignupComponent = ({ setIsAuthenticated }) => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
+      <label>
+        Password2:
+        <input
+          type="password"
+          value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
         />
       </label>
       <br />
